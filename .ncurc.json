@@ -1,0 +1,11 @@
+{
+  "upgrade": true,
+  "reject": [
+    "typescript",
+    "vue",
+    "vue-template-compiler",
+    "vue-router",
+    "vuex",
+    "@vue/test-utils"
+  ]
+}
