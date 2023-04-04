@@ -1,26 +1,23 @@
 /** Vue Router Configure */
-import {
-  createRouter,
-  type Router,
-  type RouteRecordRaw,
-} from '@logue/vue2-helpers/vue-router';
+import { createRouter, type Router, type RouteRecordRaw } from '@logue/vue2-helpers/vue-router';
 
-import HomeView from '@/views/HomeView.vue';
+import DashboardView from '@/views/DashboardView.vue';
 
 /** Router Configure */
 const routes: RouteRecordRaw[] = [
   {
-    path: '/',
-    name: 'Home',
-    component: HomeView,
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: DashboardView,
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (About.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: async () => await import('@/views/AboutView.vue'),
+    path: '/datasource',
+    name: 'Datasource',
+    component: async () => await import('@/views/DatasourceView.vue'),
+  },
+  {
+    path: '*',
+    redirect: '/dashboard',
   },
 ];
 

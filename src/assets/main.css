@@ -1,22 +1,66 @@
 @import './base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
+* {
+  outline: none;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
+body {
+  padding-top: 73px;
+  background-color: #EAEEF3;
 }
 
-@media (hover: hover) {
-  a:hover:not(:has(> img)) {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+main {
+  padding: 0 1rem 1.5rem 1rem;
+}
+
+.vertical-center {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.date-format {
+  letter-spacing: 0.05rem;
+}
+
+.mx-input {
+  border-radius: 0 5px 5px 0;
+  border: 1px solid #E2E8F0;
+}
+
+.slick-slide {
+  padding: 1rem;
+}
+
+.page-item>* {
+  font-weight: bold;
+}
+.page-item.disabled > .page-link {
+  background-color: #DDDDDD;
+}
+.page-link {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
