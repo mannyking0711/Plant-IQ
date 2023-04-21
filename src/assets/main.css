@@ -1,0 +1,73 @@
+@import './base.css';
+
+* {
+  outline: none;
+}
+
+body {
+  padding-top: 73px;
+  background-color: #eaeef3;
+}
+
+main {
+  padding: 0 1rem 1.5rem 1rem;
+}
+
+.vertical-center {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.date-format {
+  letter-spacing: 0.05rem;
+}
+
+.mx-input {
+  border-radius: 0 5px 5px 0;
+  border: 1px solid #e2e8f0;
+}
+
+.slick-slide {
+  padding: 1rem;
+}
+
+.page-item > * {
+  font-weight: bold;
+}
+.page-item.disabled > .page-link {
+  background-color: #dddddd;
+}
+.page-link {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slick-slide {
+  padding: 0 1rem 1rem 1rem;
+}
+
+.icon-item {
+  width: 18px;
+  height: 18px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

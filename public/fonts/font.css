@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "Oswald";
+  src: url(/public/fonts/Oswald/Oswald.ttf);
+}
+@font-face {
+  font-family: "Inter";
+  src: url(/public/fonts/Inter/Inter.woff2) format('woff2');
+}
