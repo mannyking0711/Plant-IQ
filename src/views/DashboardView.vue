@@ -8,22 +8,22 @@ import ProcessStatisticsChart from '@/views/Dashboard/ProcessStatisticsChart.vue
 <template>
   <div class="dashboard">
     <b-row>
-      <b-col cols="4" class="pt-4 pr-5">
-        <SearchByDatetime />
+      <b-col md="4" class="pt-4">
+        <search-by-datetime />
       </b-col>
 
-      <b-col cols="8" class="text-center">
-        <ProcessTabsCarousel />
+      <b-col md="8" class="text-center pt-4">
+        <process-tabs-carousel />
       </b-col>
     </b-row>
 
     <b-row>
-      <b-col cols="4">
-        <ProcessDetectorList />
+      <b-col md="4">
+        <process-detector-list />
       </b-col>
 
-      <b-col cols="8">
-        <ProcessStatisticsChart />
+      <b-col md="8">
+        <process-statistics-chart />
       </b-col>
     </b-row>
   </div>
@@ -33,11 +33,11 @@ import ProcessStatisticsChart from '@/views/Dashboard/ProcessStatisticsChart.vue
 .dashboard {
   .card {
     border-radius: 10px;
-    box-shadow: -8px 8px 8px #DADEE8;
+    box-shadow: -8px 8px 8px #dadee8;
   }
 
   .card-head {
-    color: #3A405B;
+    color: #3a405b;
     font-weight: 600;
     font-size: 1.2rem;
   }

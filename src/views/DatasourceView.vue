@@ -8,15 +8,15 @@ import GraphChart from '@/views/Datasource/GraphChart.vue';
   <div class="datasource">
     <b-row>
       <b-col lg="3" class="pt-4">
-        <DatasourceList />
+        <datasource-list />
       </b-col>
 
       <b-col lg="9" class="pt-4">
-        <MetricsTable />
+        <metrics-table />
 
         <div class="p-3" />
 
-        <GraphChart />
+        <graph-chart />
       </b-col>
     </b-row>
   </div>
@@ -25,13 +25,13 @@ import GraphChart from '@/views/Datasource/GraphChart.vue';
 <style lang="scss">
 .datasource {
   .card-head {
-    color: #3A405B;
+    color: #3a405b;
     font-weight: 600;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
   .card-header {
     background-color: white;
-    border-bottom: 4px solid #EAEEF3;
+    border-bottom: 4px solid #eaeef3;
   }
 }
 </style>

@@ -1,82 +1,16 @@
 <script lang="ts" setup>
 import ICON_METRICS from '@/assets/icon/metrics.vue';
-import { ref } from 'vue';
+import { watch } from 'vue';
+import { useDSStore } from '@/stores/datasource';
 
-const selected = ref([]);
-const options = [
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-  { text: 'Orange', value: 'orange' },
-  { text: 'Apple', value: 'apple' },
-  { text: 'Pineapple', value: 'pineapple' },
-];
+const store = useDSStore();
+
+watch(
+  () => store.getMetric,
+  async () => {
+    await store.loadChartDataByMetricAndBetweenDates();
+  }
+);
 </script>
 
 <template>
@@ -90,18 +24,18 @@ const options = [
       </div>
     </template>
     <template #default>
-      <div class="px-1 overflow-x-scroll">
+      <div class="px-1 overflow-x-auto">
         <div class="grid grid-rows-6 grid-flow-col gap-4 pb-3">
-          <b-form-checkbox
-            v-for="option in options"
-            :key="option.value"
-            v-model="selected"
-            :value="option.value"
-            name="flavour-4a"
-            class="w-[150px]"
-          >
-            {{ option.text }}
-          </b-form-checkbox>
+          <b-form-radio-group v-model="store.metric" name="flavour-4a">
+            <b-form-radio
+              v-for="(option, index) in store.metricsList"
+              :key="index"
+              class="w-[150px]"
+              :value="option"
+            >
+              {{ option }}
+            </b-form-radio>
+          </b-form-radio-group>
         </div>
       </div>
     </template>

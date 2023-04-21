@@ -6,7 +6,7 @@
 
 body {
   padding-top: 73px;
-  background-color: #EAEEF3;
+  background-color: #eaeef3;
 }
 
 main {
@@ -25,18 +25,18 @@ main {
 
 .mx-input {
   border-radius: 0 5px 5px 0;
-  border: 1px solid #E2E8F0;
+  border: 1px solid #e2e8f0;
 }
 
 .slick-slide {
   padding: 1rem;
 }
 
-.page-item>* {
+.page-item > * {
   font-weight: bold;
 }
 .page-item.disabled > .page-link {
-  background-color: #DDDDDD;
+  background-color: #dddddd;
 }
 .page-link {
   width: 2rem;
@@ -47,7 +47,14 @@ main {
   align-items: center;
 }
 
+.slick-slide {
+  padding: 0 1rem 1rem 1rem;
+}
 
+.icon-item {
+  width: 18px;
+  height: 18px;
+}
 
 ::-webkit-scrollbar {
   width: 5px;

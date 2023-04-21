@@ -11,18 +11,25 @@ import ICON_FLAG_US from '@/assets/icon/flag/us.png';
 import IMG_AVATAR from '@/assets/icon/avatar.png';
 import ICON_NAV_SETTING from '@/assets/icon/nav/setting.vue';
 import ICON_NAV_BELL from '@/assets/icon/nav/bell.vue';
-import NavItem from '@/components/nav/NavItem.vue';</script>
+import NavItem from '@/components/nav/NavItem.vue';
+</script>
 
 <template>
   <header>
-    <b-navbar class="py-0 h-[73px]" fixed="top" toggleable="lg" type="dark" variant="nav">
+    <b-navbar
+      class="lg:!py-0"
+      fixed="top"
+      toggleable="lg"
+      type="dark"
+      variant="nav"
+    >
       <b-navbar-brand href="#">
         <img :src="logo" alt="Vue logo" />
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse" />
 
-      <b-collapse id="nav-collapse" class="h-100" is-nav>
+      <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="mx-auto">
           <NavItem href="/dashboard" title="dashboard">
             <ICON_NAV_DASHBOARD />
@@ -33,68 +40,63 @@ import NavItem from '@/components/nav/NavItem.vue';</script>
           <NavItem href="/process" title="process">
             <ICON_NAV_PROCESS />
           </NavItem>
-          <NavItem href="/detectors" title="detectors">
+          <NavItem href="/detector" title="detectors">
             <ICON_NAV_DETECTORS />
           </NavItem>
           <NavItem href="/alerts" title="alerts">
             <ICON_NAV_ALERTS />
           </NavItem>
         </b-navbar-nav>
-
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="h-100 align-items-center">
-          <b-nav-item-dropdown class="vertical-center" no-caret right>
-            <template #button-content>
-              <img :src="ICON_FLAG_US" alt="flag_us" width="25" />
-            </template>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown class="vertical-center" no-caret right>
-            <template #button-content>
-              <ICON_NAV_SETTING />
-            </template>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown class="vertical-center" no-caret right>
-            <template #button-content>
-              <ICON_NAV_BELL />
-            </template>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown
-            id="avatar"
-            class="vertical-center"
-            no-caret
-            right
-          >
-            <template #button-content>
-              <img
-                :src="IMG_AVATAR"
-                alt="avatar"
-                class="d-inline-block"
-                width="25px"
-              />
-              Coolper.J
-            </template>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>
-        </b-navbar-nav>
       </b-collapse>
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="!hidden lg:!flex h-[70px] place-items-center">
+        <b-nav-item-dropdown class="vertical-center" no-caret right>
+          <template #button-content>
+            <img :src="ICON_FLAG_US" alt="flag_us" width="25" />
+          </template>
+          <b-dropdown-item href="#">EN</b-dropdown-item>
+          <b-dropdown-item href="#">ES</b-dropdown-item>
+          <b-dropdown-item href="#">RU</b-dropdown-item>
+          <b-dropdown-item href="#">FA</b-dropdown-item>
+        </b-nav-item-dropdown>
+
+        <b-nav-item-dropdown class="vertical-center" no-caret right>
+          <template #button-content>
+            <ICON_NAV_SETTING />
+          </template>
+          <b-dropdown-item href="#">EN</b-dropdown-item>
+          <b-dropdown-item href="#">ES</b-dropdown-item>
+          <b-dropdown-item href="#">RU</b-dropdown-item>
+          <b-dropdown-item href="#">FA</b-dropdown-item>
+        </b-nav-item-dropdown>
+
+        <b-nav-item-dropdown class="vertical-center" no-caret right>
+          <template #button-content>
+            <ICON_NAV_BELL />
+          </template>
+          <b-dropdown-item href="#">EN</b-dropdown-item>
+          <b-dropdown-item href="#">ES</b-dropdown-item>
+          <b-dropdown-item href="#">RU</b-dropdown-item>
+          <b-dropdown-item href="#">FA</b-dropdown-item>
+        </b-nav-item-dropdown>
+
+        <b-nav-item-dropdown id="avatar" class="vertical-center" no-caret right>
+          <template #button-content>
+            <img
+              :src="IMG_AVATAR"
+              alt="avatar"
+              class="d-inline-block"
+              width="25px"
+            />
+            Coolper.J
+          </template>
+          <b-dropdown-item href="#">EN</b-dropdown-item>
+          <b-dropdown-item href="#">ES</b-dropdown-item>
+          <b-dropdown-item href="#">RU</b-dropdown-item>
+          <b-dropdown-item href="#">FA</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
     </b-navbar>
   </header>
 </template>

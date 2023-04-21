@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Process from '@/components/Process.vue';
+import Process from '@/components/Dashboard/Process.vue';
 import { Status } from '@/model/status';
 
 const processList: Process.Props[] = [

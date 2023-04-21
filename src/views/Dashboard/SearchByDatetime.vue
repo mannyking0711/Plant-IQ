@@ -17,11 +17,7 @@ const endDateTime = ref(new Date());
             START
           </b-input-group-text>
         </b-input-group-prepend>
-        <date-picker
-          v-model="startDateTime"
-          placeholder=""
-          type="datetime"
-        />
+        <date-picker v-model="startDateTime" placeholder="" type="datetime" />
       </b-input-group>
 
       <b-input-group class="mb-2 justify-center">
@@ -30,11 +26,7 @@ const endDateTime = ref(new Date());
             END
           </b-input-group-text>
         </b-input-group-prepend>
-        <date-picker
-          v-model="endDateTime"
-          placeholder=""
-          type="datetime"
-        />
+        <date-picker v-model="endDateTime" placeholder="" type="datetime" />
       </b-input-group>
 
       <div class="mt-3 text-center">
@@ -49,3 +41,9 @@ const endDateTime = ref(new Date());
     </b-form>
   </b-card>
 </template>
+
+<style lang="scss">
+.mx-datepicker {
+  width: auto;
+}
+</style>

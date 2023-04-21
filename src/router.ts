@@ -16,6 +16,16 @@ const routes: RouteRecordRaw[] = [
     component: async () => await import('@/views/DatasourceView.vue'),
   },
   {
+    path: '/process',
+    name: 'Process',
+    component: async () => await import('@/views/ProcessView.vue'),
+  },
+  {
+    path: '/detector',
+    name: 'Detector',
+    component: async () => await import('@/views/DetectorView.vue'),
+  },
+  {
     path: '*',
     redirect: '/dashboard',
   },

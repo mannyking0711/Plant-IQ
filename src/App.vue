@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import Header from '@/views/Layout/Header.vue';
 import Footer from '@/views/Layout/Footer.vue';
+import { useGlobalStore } from '@/stores/global';
 
 document.title = import.meta.env.VITE_APP_TITLE || 'Plant IQ';
+
+const store = useGlobalStore();
 </script>
 
 <template>
@@ -14,5 +17,14 @@ document.title = import.meta.env.VITE_APP_TITLE || 'Plant IQ';
     </main>
 
     <Footer />
+
+    <b-overlay
+      v-if="store.overlay"
+      :show="true"
+      class="position-fixed w-100 h-100 top-0 z-[9999]"
+      rounded="sm"
+    />
+
+    <notifications position="top center" />
   </div>
 </template>
