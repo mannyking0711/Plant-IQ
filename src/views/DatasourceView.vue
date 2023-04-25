@@ -7,8 +7,8 @@ import GraphChart from '@/views/Datasource/GraphChart.vue';
 <template>
   <div class="datasource">
     <b-row>
-      <b-col lg="3" class="pt-4">
-        <datasource-list />
+      <b-col lg="3" class="pt-4 flex flex-col">
+        <datasource-list class="flex-1" />
       </b-col>
 
       <b-col lg="9" class="pt-4">

@@ -3,9 +3,9 @@ import ICON_GRAPH from '@/assets/icon/graph.vue';
 import DatePicker from 'vue2-datepicker';
 import { ref, watch } from 'vue';
 import 'vue2-datepicker/index.css';
-import { useDSStore } from '@/stores/datasource';
+import { useDetectorStore } from '@/stores/detector';
 
-const store = useDSStore();
+const store = useDetectorStore();
 
 const seriesData = ref<any[]>([]);
 
@@ -59,8 +59,9 @@ watch(
 );
 
 const searchByDates = async () => {
-  if (store.getCurrentDatasourceId !== -1) {
-    await store.loadChartDataByMetricAndBetweenDates();
+  alert(store.getSelectedDetectorId);
+  if (store.detectorId !== -1) {
+    await store.loadRecords();
   }
 };
 </script>

@@ -26,4 +26,17 @@ export default {
       },
     });
   },
+  async loadRecordsByDetectorIdAndBetweenDates(
+    id: number,
+    startDt: Date,
+    endDt: Date
+  ) {
+    return await appHttp.get('/api/detector/records', {
+      params: {
+        detectorId: id,
+        startAt: startDt,
+        endAt: endDt,
+      },
+    });
+  },
 };

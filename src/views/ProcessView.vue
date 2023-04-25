@@ -15,16 +15,16 @@ onMounted(() => {
 <template>
   <div class="process-view">
     <b-row>
-      <b-col lg="3" class="pt-4">
-        <process-list />
+      <b-col lg="3" class="pt-4 flex flex-col">
+        <process-list class="flex-1" />
       </b-col>
 
       <b-col lg="6" class="pt-4">
         <metrics-table />
       </b-col>
 
-      <b-col lg="3" class="pt-4">
-        <detectors-list />
+      <b-col lg="3" class="pt-4 flex flex-col">
+        <detectors-list class="flex-1" />
       </b-col>
     </b-row>
   </div>

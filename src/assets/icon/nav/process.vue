@@ -48,11 +48,7 @@ else if (props.variant === 'dark') color.value = '#5A5A5A';
     </g>
     <defs>
       <clipPath id="clip0_89_1279">
-        <rect
-          width="25"
-          height="25"
-          transform="translate(0 0.692627)"
-        />
+        <rect width="25" height="25" transform="translate(0 0.692627)" />
       </clipPath>
     </defs>
   </svg>

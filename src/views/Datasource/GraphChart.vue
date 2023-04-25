@@ -7,7 +7,7 @@ import { useDSStore } from '@/stores/datasource';
 
 const store = useDSStore();
 
-const seriesData = ref([]);
+const seriesData = ref<any[]>([]);
 
 const chartOptions = ref({
   rangeSelector: {

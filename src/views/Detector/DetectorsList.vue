@@ -18,12 +18,13 @@ const onSelectDetector = async (id: number) => {
   await store.loadProcessByDetectorId(id);
   await store.loadMetricsByDetectorId(id);
   store.setCurrentDetector(id);
+  await store.loadRecords();
 };
 </script>
 
 <template>
   <div>
-    <b-card>
+    <b-card class="h-100">
       <template #header>
         <div class="d-flex justify-between">
           <div class="card-head d-inline-flex place-items-center">

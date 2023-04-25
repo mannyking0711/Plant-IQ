@@ -6,6 +6,9 @@ interface DetectorState {
   detectors: any[];
   detectorId: number;
   process: any;
+  chartData: any[];
+  startDt: Date;
+  endDt: Date;
 }
 
 export const useDetectorStore = defineStore('detector', {
@@ -14,6 +17,9 @@ export const useDetectorStore = defineStore('detector', {
     detectors: [],
     detectorId: -1,
     process: null,
+    chartData: [],
+    startDt: new Date('2022-01-01 00:00:00'),
+    endDt: new Date(),
   }),
 
   getters: {
@@ -28,6 +34,15 @@ export const useDetectorStore = defineStore('detector', {
     },
     getProcess(state) {
       return state.process;
+    },
+    getChartData(state) {
+      return state.chartData;
+    },
+    getStartDt(state) {
+      return state.startDt;
+    },
+    getEndDt(state) {
+      return state.endDt;
     },
   },
 
@@ -53,6 +68,14 @@ export const useDetectorStore = defineStore('detector', {
     async loadProcessByDetectorId(id: number) {
       const res = await API.detector.loadProcessByDetectorId(id);
       this.process = JSON.parse(res.data);
+    },
+    async loadRecords() {
+      const res = await API.detector.loadRecordsByDetectorIdAndBetweenDates(
+        this.detectorId,
+        this.startDt,
+        this.endDt
+      );
+      this.chartData = res.data;
     },
     setCurrentDetector(id: number) {
       this.detectorId = id;

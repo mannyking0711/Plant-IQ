@@ -43,7 +43,7 @@ defineProps<Props>();
 
 <style lang="scss">
 .db-item {
-  border: 1px solid #DDDDDD;
+  border: 1px solid #dddddd;
   border-radius: 10px;
 }
 </style>

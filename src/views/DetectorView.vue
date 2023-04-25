@@ -16,8 +16,8 @@ onMounted(async () => {
 <template>
   <div class="detector-view">
     <b-row>
-      <b-col lg="3" class="pt-4">
-        <detectors-list />
+      <b-col lg="3" class="pt-4 flex flex-col">
+        <detectors-list class="flex-1" />
         <div class="pt-4" />
         <process-list />
       </b-col>

@@ -13,7 +13,7 @@ const detectorList = computed(() => {
 
 <template>
   <div>
-    <b-card>
+    <b-card class="h-100">
       <template #header>
         <div class="d-flex justify-between">
           <div class="card-head d-inline-flex place-items-center">

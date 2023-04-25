@@ -31,19 +31,25 @@ const icon = computed(() => {
       </div>
       <div class="d-flex flex-column gap-[.25rem]">
         Max Anomaly
-        <div class="h-100 d-flex justify-center align-items-center text-lg font-semibold text-[#F89500]">
+        <div
+          class="h-100 d-flex justify-center align-items-center text-lg font-semibold text-[#F89500]"
+        >
           {{ maxAnomaly }}
         </div>
       </div>
       <div class="d-flex flex-column gap-[.25rem]">
         Total Alerts
-        <div class="h-100 d-flex justify-center align-items-center text-lg font-semibold text-[#2F80ED]">
+        <div
+          class="h-100 d-flex justify-center align-items-center text-lg font-semibold text-[#2F80ED]"
+        >
           {{ topAlerts }}
         </div>
       </div>
       <div class="d-flex flex-column gap-[.25rem]">
         Actual Score
-        <div class="h-100 d-flex justify-center align-items-center text-lg font-semibold text-[#00FF85]">
+        <div
+          class="h-100 d-flex justify-center align-items-center text-lg font-semibold text-[#00FF85]"
+        >
           {{ actualScore }}
         </div>
       </div>

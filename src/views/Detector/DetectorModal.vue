@@ -1,13 +1,12 @@
 <script lang="ts" setup>
-import Vue, { computed, reactive, ref, watch } from 'vue';
+import Vue, {computed, reactive, ref, watch} from 'vue';
 import useVuelidate from '@vuelidate/core';
-import { helpers, required } from '@vuelidate/validators';
+import {helpers, required} from '@vuelidate/validators';
 import DatasourceListItem from '@/components/Process/DatasourceListItem.vue';
 import MetricListItem from '@/components/Process/MetricListItem.vue';
-import { useDSStore } from '@/stores/datasource';
-import { useProcessStore } from '@/stores/process';
-import { API } from '@/api';
-import { useDetectorStore } from '@/stores/detector';
+import {useDSStore} from '@/stores/datasource';
+import {useProcessStore} from '@/stores/process';
+import {useDetectorStore} from '@/stores/detector';
 
 const dsStore = useDSStore();
 const processStore = useProcessStore();
@@ -17,6 +16,9 @@ const selectedProcess = ref(-1);
 const selectedDatasource = ref(-1);
 const selectedMetrics = ref([]);
 
+const datasourceList = computed(() =>
+  dsStore.getDatasourceList.filter(i => i.pk === selectedDatasource.value)
+);
 const processList = computed(() => processStore.getProcessList);
 const metricsList = ref([]);
 
@@ -91,10 +93,9 @@ const validateStatus = (name: string) => {
 };
 
 const onSelectProcess = async (id: number) => {
-  metricsList.value = (await API.process.loadMetricsByProcessId(id)).data;
-  selectedDatasource.value = (processList.value as any[]).find(
-    i => i.pk === id
-  ).fields.datasource;
+  const process = processStore.getProcessList.find(i => i.pk === id);
+  metricsList.value = JSON.parse(process.fields.metricList);
+  selectedDatasource.value = process.fields.datasource;
   selectedProcess.value = id;
   selectedMetrics.value = [];
 };
@@ -188,15 +189,14 @@ watch(
         <b-row>
           <b-col cols="6" class="pr-2">
             <label class="w-100">
-              Datasource({{ dsStore.getDatasourceList.length }})
+              Datasource({{ datasourceList.length }})
 
               <div class="border rounded h-[300px] overflow-y-auto">
                 <datasource-list-item
-                  v-for="(ds, index) in dsStore.getDatasourceList"
+                  v-for="(ds, index) in datasourceList"
                   :id="ds.pk"
                   :key="index"
                   :name="ds.fields.name"
-                  :active="selectedDatasource === ds.pk"
                 />
               </div>
             </label>
