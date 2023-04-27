@@ -4,7 +4,10 @@ import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 import Highcharts from 'highcharts';
 import HighchartsStockModule from 'highcharts/modules/stock';
 import HighchartsVue from 'highcharts-vue';
-import Notifications from 'vue-notification'
+import Notifications from 'vue-notification';
+
+import { store } from '@/stores';
+import { openSocket } from './socket';
 
 import router from '@/router';
 import teleport from '@logue/vue2-helpers/teleport';
@@ -14,7 +17,7 @@ import '@/assets/scss/main.scss';
 import '@/assets/main.css';
 
 import App from '@/App.vue';
-import { createPinia, PiniaVuePlugin } from 'pinia';
+import { PiniaVuePlugin } from 'pinia';
 
 Vue.config.productionTip = false;
 Vue.component('Teleport', teleport);
@@ -43,12 +46,14 @@ Vue.use(HighchartsVue);
 
 // Pinia Config - Vuex Alternative
 Vue.use(PiniaVuePlugin);
-const pinia = createPinia();
+
+// Socket Config
+openSocket();
 
 const vue = new Vue({
   router,
   render: h => h(App),
-  pinia,
+  pinia: store,
 });
 
 // Run!

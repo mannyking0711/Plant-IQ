@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
+import { store } from '@/stores/index';
 
 interface GlobalState {
   overlay: boolean;
+  disable: boolean;
 }
 
 let timeId = -1;
@@ -9,6 +11,7 @@ let timeId = -1;
 export const useGlobalStore = defineStore('global', {
   state: (): GlobalState => ({
     overlay: false,
+    disable: false,
   }),
   getters: {
     getOverlay(state): boolean {
@@ -17,21 +20,35 @@ export const useGlobalStore = defineStore('global', {
   },
   actions: {
     lockScreen() {
-      if (timeId === -1) {
-        this.overlay = true;
-      } else {
-        clearTimeout(timeId);
-        timeId = setTimeout(() => {
+      if (!this.disable) {
+        if (timeId === -1) {
           this.overlay = true;
-        }, 200);
+        } else {
+          clearTimeout(timeId);
+          timeId = setTimeout(() => {
+            this.overlay = true;
+          }, 200);
+        }
       }
     },
     unlockScreen() {
-      clearTimeout(timeId);
-      timeId = setTimeout(() => {
-        this.overlay = false;
-        timeId = -1;
-      }, 200);
+      // if (!this.disable) {
+        clearTimeout(timeId);
+        timeId = setTimeout(() => {
+          this.overlay = false;
+          timeId = -1;
+        }, 200);
+      // }
+    },
+    disableLock() {
+      this.disable = true;
+    },
+    enableLock() {
+      this.disable = false;
     },
   },
 });
+
+export const useGlobalStoreWithOut = (): any => {
+  return useGlobalStore(store);
+};

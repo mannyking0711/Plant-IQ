@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import axios, { type AxiosError } from 'axios';
-import { useGlobalStore } from '@/stores/global';
+import { useGlobalStoreWithOut } from '@/stores/global';
 
 const http = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL,
@@ -14,7 +14,7 @@ const http = axios.create({
   },
 });
 
-const globalStore = useGlobalStore();
+const globalStore = useGlobalStoreWithOut();
 
 http.interceptors.request.use(
   value => {

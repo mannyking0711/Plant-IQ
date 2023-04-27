@@ -19,18 +19,17 @@ watch(
       <div class="d-flex justify-between">
         <div class="card-head d-inline-flex place-items-center">
           <ICON_METRICS class="mr-1" />
-          Metrics (27)
+          Metrics ({{ store.getMetricsList.length }})
         </div>
       </div>
     </template>
     <template #default>
       <div class="px-1 overflow-x-auto">
-        <div class="grid grid-rows-6 grid-flow-col gap-4 pb-3">
+        <div class="grid grid-rows-6 grid-flow-col gap-4 pt-1 pb-3">
           <b-form-radio-group v-model="store.metric" name="flavour-4a">
             <b-form-radio
-              v-for="(option, index) in store.metricsList"
+              v-for="(option, index) in store.getMetricsList"
               :key="index"
-              class="w-[150px]"
               :value="option"
             >
               {{ option }}

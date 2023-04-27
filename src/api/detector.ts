@@ -35,7 +35,7 @@ export default {
       params: {
         detectorId: id,
         startAt: startDt,
-        endAt: endDt,
+        stopAt: endDt,
       },
     });
   },

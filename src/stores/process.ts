@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { API } from '@/api';
+import { store } from '@/stores';
 
 interface ProcessState {
   processList: any[];
@@ -64,3 +65,7 @@ export const useProcessStore = defineStore('process', {
     },
   },
 });
+
+export const useProcessStoreWithOut = (): any => {
+  return useProcessStore(store);
+};

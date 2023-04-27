@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { API } from '@/api';
+import { store } from '@/stores/index';
 
 interface DatasourceState {
   datasourceList: any[];
@@ -82,3 +83,7 @@ export const useDSStore = defineStore('datasource', {
     },
   },
 });
+
+export const useDSStoreWithOut = (): any => {
+  return useDSStore(store);
+};

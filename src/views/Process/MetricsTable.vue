@@ -7,7 +7,7 @@ const store = useProcessStore();
 
 <template>
   <div>
-    <b-card>
+    <b-card class="h-[90vh]">
       <template #header>
         <div class="d-flex justify-between">
           <div class="card-head d-inline-flex place-items-center">
@@ -18,7 +18,7 @@ const store = useProcessStore();
       </template>
       <template #default>
         <div
-          class="overflow-x-auto h-[90vh] grid grid-rows-6 grid-flow-col gap-x-6 gap-y-4 py-2"
+          class="overflow-x-auto grid grid-rows-6 grid-flow-col gap-x-6 gap-y-4 py-2"
         >
           <span v-if="store.getMetrics.length === 0">Empty metrics ...</span>
           <span

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import ICON_GRAPH from '@/assets/icon/graph.vue';
 import DatePicker from 'vue2-datepicker';
-import { ref, watch } from 'vue';
+import {onMounted, ref, watch} from 'vue';
 import 'vue2-datepicker/index.css';
 import { useDSStore } from '@/stores/datasource';
 
@@ -17,7 +17,7 @@ const chartOptions = ref({
     type: 'datetime',
   },
   title: {
-    text: 'InfluxDB Graph',
+    text: '',
   },
   legend: {
     enabled: true,
@@ -31,30 +31,47 @@ const chartOptions = ref({
   series: seriesData,
 });
 
+const drawChart = () => {
+  const jsonData = store.getChartData;
+
+  const series: any = {};
+  for (let i = 0; i < jsonData.length; i++) {
+    if (series[jsonData[i][0]] === undefined) {
+      series[jsonData[i][0]] = [];
+    }
+    series[jsonData[i][0]].push([
+      new Date(jsonData[i][1]).getTime(),
+      jsonData[i][2],
+    ]);
+  }
+
+  seriesData.value.splice(0);
+  Object.keys(series).forEach(name => {
+    seriesData.value.push({
+      name,
+      data: series[name],
+    });
+    return null;
+  });
+};
+
+onMounted(() => {
+  if (store.getChartData.length) {
+    drawChart();
+  }
+});
+
 watch(
   () => store.getChartData,
   () => {
-    const jsonData = store.getChartData;
+    drawChart();
+  }
+);
 
-    const series: any = {};
-    for (let i = 0; i < jsonData.length; i++) {
-      if (series[jsonData[i][0]] === undefined) {
-        series[jsonData[i][0]] = [];
-      }
-      series[jsonData[i][0]].push([
-        new Date(jsonData[i][1]).getTime(),
-        jsonData[i][2],
-      ]);
-    }
-
-    seriesData.value.splice(0);
-    Object.keys(series).forEach(name => {
-      seriesData.value.push({
-        name,
-        data: series[name],
-      });
-      return null;
-    });
+watch(
+  () => store.getMetric,
+  val => {
+    chartOptions.value.title.text = val;
   }
 );
 
