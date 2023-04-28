@@ -8,6 +8,8 @@ import DatasourceModal from '@/views/Datasource/DatasourceModal.vue';
 import { Status } from '@/model/status';
 import { onMounted } from 'vue';
 import { useDSStore } from '@/stores/datasource';
+import UpdateDatasourceModal from '@/views/Datasource/UpdateDatasourceModal.vue';
+import Swal from 'sweetalert2';
 
 const store = useDSStore();
 
@@ -18,18 +20,27 @@ onMounted(() => {
 const dbItemClicked = async (id: number) => {
   if (id !== store.datasourceId) {
     // Load metrics
-    await store.loadMetricsByDbId(id);
+    await store.setCurrentDatasourceId(id);
+  }
+};
 
-    // Load statistics
-    if (store.getMetricsList.length > 0) {
-      store.setMetric(store.getMetricsList[0]);
+const onDeleteEvent = async () => {
+  const r = await Swal.fire({
+    icon: 'question',
+    title: 'Do you want to delete it?',
+    showConfirmButton: true,
+    showCancelButton: true,
+  });
 
-      await store.loadChartDataByMetricAndBetweenDates();
-    } else {
-      store.setMetric('');
-    }
+  if (r.isConfirmed) {
+    await store.deleteDatasource(store.getCurrentDatasourceId);
 
-    store.setCurrentDatasourceId(id);
+    await Swal.fire({
+      icon: 'success',
+      title: 'Success',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   }
 };
 </script>
@@ -50,8 +61,25 @@ const dbItemClicked = async (id: number) => {
             class="mx-1"
           />
           <DatasourceModal />
-          <ICON_EDIT v-b-tooltip="'Edit'" role="button" class="mx-1" />
-          <ICON_TRASH v-b-tooltip="'Trash'" role="button" class="mx-1" />
+          <span
+            v-b-modal="'update-datasource-modal'"
+            v-b-tooltip="'Edit'"
+            class="mx-1"
+            :role="store.getCurrentDatasourceId === -1 ? '' : 'button'"
+            :disabled="store.getCurrentDatasourceId === -1"
+          >
+            <ICON_EDIT />
+          </span>
+          <UpdateDatasourceModal />
+          <span
+            v-b-tooltip="'Trash'"
+            class="mx-1"
+            :role="store.getCurrentDatasourceId === -1 ? '' : 'button'"
+            :disabled="store.getCurrentDatasourceId === -1"
+            @click="onDeleteEvent"
+          >
+            <ICON_TRASH />
+          </span>
         </div>
       </div>
     </template>

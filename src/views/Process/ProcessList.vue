@@ -7,6 +7,8 @@ import { useProcessStore } from '@/stores/process';
 import { computed, onMounted } from 'vue';
 import ProcessItem from '@/components/Process/ProcessItem.vue';
 import ProcessModal from '@/views/Process/ProcessModal.vue';
+import UpdateProcessModal from '@/views/Process/UpdateProcessModal.vue';
+import Swal from "sweetalert2";
 
 const store = useProcessStore();
 
@@ -18,6 +20,26 @@ const clickEvent = async (id: number) => {
   await store.loadMetricsByProcessId(id);
   await store.loadDetectorsByProcessId(id);
   await store.setCurrentProcess(id);
+};
+
+const onDeleteEvent = async () => {
+  const r = await Swal.fire({
+    icon: 'question',
+    title: 'Do you want to delete it?',
+    showConfirmButton: true,
+    showCancelButton: true,
+  });
+
+  if (r.isConfirmed) {
+    await store.deleteProcess(store.getSelectedProcessId);
+
+    await Swal.fire({
+      icon: 'success',
+      title: 'Success',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
 };
 </script>
 
@@ -37,8 +59,25 @@ const clickEvent = async (id: number) => {
               class="mx-1"
             />
             <ProcessModal />
-            <ICON_EDIT v-b-tooltip="'Edit'" role="button" class="mx-1" />
-            <ICON_TRASH v-b-tooltip="'Trash'" role="button" class="mx-1" />
+            <span
+              v-b-modal="'update-process-modal'"
+              v-b-tooltip="'Edit'"
+              class="mx-1"
+              :role="store.getSelectedProcessId === -1 ? '' : 'button'"
+              :disabled="store.getSelectedProcessId === -1"
+            >
+              <ICON_EDIT />
+            </span>
+            <UpdateProcessModal />
+            <span
+              v-b-tooltip="'Trash'"
+              class="mx-1"
+              :role="store.getSelectedProcessId === -1 ? '' : 'button'"
+              :disabled="store.getSelectedProcessId === -1"
+              @click="onDeleteEvent"
+            >
+              <ICON_TRASH />
+            </span>
           </div>
         </div>
       </template>
@@ -49,8 +88,8 @@ const clickEvent = async (id: number) => {
           </span>
 
           <process-item
-            v-else
             v-for="(process, index) in processList"
+            v-else
             :id="process.pk"
             :key="index"
             :static="false"

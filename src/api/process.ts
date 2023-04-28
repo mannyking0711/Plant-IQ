@@ -9,6 +9,21 @@ export default {
       },
     });
   },
+  async updateProcess(id: number, payload: any) {
+    return await appHttp.get('/api/process/update', {
+      params: {
+        ...payload,
+        id,
+        userId: 1,
+        metricNames: JSON.stringify(payload.metricNames),
+      },
+    });
+  },
+  async deleteProcess(id: number) {
+    return await appHttp.get('/api/process/delete', {
+      params: { id },
+    });
+  },
   async loadProcessList() {
     return await appHttp.get('/api/process/all');
   },

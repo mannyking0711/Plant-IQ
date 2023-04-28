@@ -6,7 +6,23 @@ export default {
       params: {
         ...form,
         metricNames: JSON.stringify(form.metricNames),
+        userId: 1,
       },
+    });
+  },
+  async updateDetector(id: number, payload: any) {
+    return await appHttp.get('/api/detector/update', {
+      params: {
+        ...payload,
+        id,
+        userId: 1,
+        metricNames: JSON.stringify(payload.metricNames),
+      },
+    });
+  },
+  async deleteDetector(id: number) {
+    return await appHttp.get('/api/detector/delete', {
+      params: { id },
     });
   },
   async loadDetectorList() {

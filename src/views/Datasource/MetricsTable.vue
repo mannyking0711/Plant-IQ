@@ -25,17 +25,19 @@ watch(
     </template>
     <template #default>
       <div class="px-1 overflow-x-auto">
-        <div class="grid grid-rows-6 grid-flow-col gap-4 pt-1 pb-3">
-          <b-form-radio-group v-model="store.metric" name="flavour-4a">
-            <b-form-radio
-              v-for="(option, index) in store.getMetricsList"
-              :key="index"
-              :value="option"
-            >
-              {{ option }}
-            </b-form-radio>
-          </b-form-radio-group>
-        </div>
+        <b-form-radio-group
+          v-model="store.metric"
+          name="flavour-4a"
+          class="grid grid-rows-6 grid-flow-col gap-4 pt-1 pb-3"
+        >
+          <b-form-radio
+            v-for="(option, index) in store.getMetricsList"
+            :key="index"
+            :value="option"
+          >
+            {{ option }}
+          </b-form-radio>
+        </b-form-radio-group>
       </div>
     </template>
   </b-card>

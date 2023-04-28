@@ -47,6 +47,14 @@ export const useProcessStore = defineStore('process', {
       await API.process.createProcess(form);
       await this.loadProcessList();
     },
+    async updateProcess(id: number, process: any) {
+      await API.process.updateProcess(id, process);
+      await this.loadProcessList();
+    },
+    async deleteProcess(id: number) {
+      await API.process.deleteProcess(id);
+      await this.loadProcessList();
+    },
     async loadProcessList(force = true) {
       if (!force && this.processList.length) return;
       const res = await API.process.loadProcessList();

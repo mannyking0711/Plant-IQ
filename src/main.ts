@@ -47,14 +47,14 @@ Vue.use(HighchartsVue);
 // Pinia Config - Vuex Alternative
 Vue.use(PiniaVuePlugin);
 
-// Socket Config
-openSocket();
-
 const vue = new Vue({
   router,
   render: h => h(App),
   pinia: store,
 });
+
+// Socket Config
+openSocket();
 
 // Run!
 router

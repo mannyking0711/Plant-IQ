@@ -19,8 +19,8 @@ export const useDSStore = defineStore('datasource', {
     chartData: [],
     datasourceId: -1,
     metric: '',
-    startDt: new Date('2022-01-01 00:00:00'),
-    endDt: new Date(),
+    startDt: new Date(Date.now() - 3600 * 6 * 1000),
+    endDt: new Date(Date.now() + 3600 * 6 * 1000),
   }),
 
   getters: {
@@ -59,6 +59,16 @@ export const useDSStore = defineStore('datasource', {
       await this.loadDatasource();
     },
 
+    async updateDatasource(id: number, datasource: any) {
+      await API.datasource.updateDatasource(id, datasource);
+      await this.loadDatasource();
+    },
+
+    async deleteDatasource(id: number) {
+      await API.datasource.deleteDatasource(id);
+      await this.loadDatasource();
+    },
+
     async loadMetricsByDbId(id: number) {
       const res = await API.datasource.loadMetricsByDbId(id);
       this.datasourceId = id;
@@ -78,7 +88,20 @@ export const useDSStore = defineStore('datasource', {
     setMetric(metric: string) {
       this.metric = metric;
     },
-    setCurrentDatasourceId(id: number) {
+    async setCurrentDatasourceId(id: number) {
+      this.startDt = new Date(Date.now() - 3600 * 6 * 1000);
+      this.endDt = new Date(Date.now() + 3600 * 6 * 1000);
+
+      await this.loadMetricsByDbId(id);
+
+      if (this.getMetricsList.length > 0) {
+        this.setMetric(this.getMetricsList[0]);
+
+        await this.loadChartDataByMetricAndBetweenDates();
+      } else {
+        this.setMetric('');
+      }
+
       this.datasourceId = id;
     },
   },

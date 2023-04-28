@@ -90,7 +90,7 @@ const searchByDates = async () => {
           <ICON_GRAPH class="mr-1" />
           Graph
         </div>
-        <div class="w-100 text-center place-self-center">
+        <div class="flex-1 text-center place-self-center">
           <b-input-group class="mx-1 justify-center d-inline-flex !w-auto">
             <b-input-group-prepend class="w-[4rem]">
               <b-input-group-text class="w-100 justify-content-center">

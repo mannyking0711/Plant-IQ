@@ -7,6 +7,8 @@ import { computed } from 'vue';
 import { useDetectorStore } from '@/stores/detector';
 import DetectorListItem from '@/components/Process/DetectorListItem.vue';
 import DetectorModal from '@/views/Detector/DetectorModal.vue';
+import UpdateDetectorModal from '@/views/Detector/UpdateDetectorModal.vue';
+import Swal from 'sweetalert2';
 
 const store = useDetectorStore();
 
@@ -19,6 +21,26 @@ const onSelectDetector = async (id: number) => {
   await store.loadMetricsByDetectorId(id);
   store.setCurrentDetector(id);
   await store.loadRecords();
+};
+
+const onDeleteEvent = async () => {
+  const r = await Swal.fire({
+    icon: 'question',
+    title: 'Do you want to delete it?',
+    showConfirmButton: true,
+    showCancelButton: true,
+  });
+
+  if (r.isConfirmed) {
+    await store.deleteDetector(store.getSelectedDetectorId);
+
+    await Swal.fire({
+      icon: 'success',
+      title: 'Success',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
 };
 </script>
 
@@ -38,8 +60,25 @@ const onSelectDetector = async (id: number) => {
               class="mx-1"
             />
             <DetectorModal />
-            <ICON_EDIT v-b-tooltip="'Edit'" role="button" class="mx-1" />
-            <ICON_TRASH v-b-tooltip="'Trash'" role="button" class="mx-1" />
+            <span
+              v-b-modal="'update-detector-modal'"
+              v-b-tooltip="'Edit'"
+              class="mx-1"
+              :role="store.getSelectedDetectorId === -1 ? '' : 'button'"
+              :disabled="store.getSelectedDetectorId === -1"
+            >
+              <ICON_EDIT />
+            </span>
+            <UpdateDetectorModal />
+            <span
+              v-b-tooltip="'Trash'"
+              class="mx-1"
+              :role="store.getSelectedDetectorId === -1 ? '' : 'button'"
+              :disabled="store.getSelectedDetectorId === -1"
+              @click="onDeleteEvent"
+            >
+              <ICON_TRASH />
+            </span>
           </div>
         </div>
       </template>

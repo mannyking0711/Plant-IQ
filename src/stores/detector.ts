@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { API } from '@/api';
 import { store } from '@/stores/index';
-import {useGlobalStore, useGlobalStoreWithOut} from "@/stores/global";
+import { useGlobalStore, useGlobalStoreWithOut } from '@/stores/global';
 
 interface DetectorState {
   metrics: string[];
@@ -21,7 +21,7 @@ export const useDetectorStore = defineStore('detector', {
     process: null,
     chartData: [],
     startDt: new Date(Date.now() - 3600 * 6 * 1000),
-    endDt: new Date(Date.now() + 3600 * 1000),
+    endDt: new Date(Date.now() + 3600 * 6 * 1000),
   }),
 
   getters: {
@@ -34,9 +34,8 @@ export const useDetectorStore = defineStore('detector', {
     getSelectedDetectorId(state) {
       return state.detectorId;
     },
-    getSelectedDetector(state) {
-      if (state.detectorId === -1)
-        return null;
+    getSelectedDetector: function(state) {
+      if (state.detectorId === -1) return null;
       return state.detectors.find(i => i.pk === state.detectorId);
     },
     getProcess(state) {
@@ -61,6 +60,14 @@ export const useDetectorStore = defineStore('detector', {
       metricNames: string[];
     }) {
       await API.detector.createDetector(form);
+      await this.loadDetectorList();
+    },
+    async updateDetector(id: number, detector: any) {
+      await API.detector.updateDetector(id, detector);
+      await this.loadDetectorList();
+    },
+    async deleteDetector(id: number) {
+      await API.detector.deleteDetector(id);
       await this.loadDetectorList();
     },
     async loadDetectorList(force = true) {
@@ -108,6 +115,8 @@ export const useDetectorStore = defineStore('detector', {
     },
     setCurrentDetector(id: number) {
       this.detectorId = id;
+      this.startDt = new Date(Date.now() - 3600 * 6 * 1000);
+      this.endDt = new Date(Date.now() + 3600 * 6 * 1000);
     },
   },
 });

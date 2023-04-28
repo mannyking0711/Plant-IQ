@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import ICON_GRAPH from '@/assets/icon/graph.vue';
 import DatePicker from 'vue2-datepicker';
-import {onMounted, ref, watch} from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import 'vue2-datepicker/index.css';
 import { useDetectorStore } from '@/stores/detector';
 import { useSocketStore } from '@/stores/socket';
@@ -88,9 +88,9 @@ const searchByDates = async () => {
       <div class="d-flex">
         <div class="card-head d-inline-flex place-items-center">
           <ICON_GRAPH class="mr-1" />
-          Graph
+          Anomaly level graph
         </div>
-        <div class="w-100 text-center place-self-center">
+        <div class="flex-1 text-center place-self-center">
           <b-input-group class="mx-1 justify-center d-inline-flex !w-auto">
             <b-input-group-prepend class="w-[4rem]">
               <b-input-group-text class="w-100 justify-content-center">
