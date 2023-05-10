@@ -70,6 +70,8 @@ export const useProcessStore = defineStore('process', {
     },
     async setCurrentProcess(id: number) {
       this.processId = id;
+      this.metrics = [];
+      this.detectors = [];
     },
   },
 });

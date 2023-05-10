@@ -9,7 +9,14 @@ const http = axios.create({
       const resp = JSON.parse(data);
       if (resp.status === 'success') return resp.data;
       else if (resp.status === undefined) return resp;
-      else throw Error(data.status || 'Error');
+      else {
+        Vue.notify({
+          type: 'error',
+          title: 'SERVER MESSAGE',
+          text: resp.data,
+        });
+        throw Error(data.status || 'Error');
+      }
     }
   },
 });

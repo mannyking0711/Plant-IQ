@@ -92,6 +92,11 @@ export const useDSStore = defineStore('datasource', {
       this.startDt = new Date(Date.now() - 3600 * 6 * 1000);
       this.endDt = new Date(Date.now() + 3600 * 6 * 1000);
 
+      this.datasourceId = id;
+      this.setMetric('');
+      this.metricsList = [];
+      this.chartData = [];
+
       await this.loadMetricsByDbId(id);
 
       if (this.getMetricsList.length > 0) {
@@ -101,8 +106,6 @@ export const useDSStore = defineStore('datasource', {
       } else {
         this.setMetric('');
       }
-
-      this.datasourceId = id;
     },
   },
 });

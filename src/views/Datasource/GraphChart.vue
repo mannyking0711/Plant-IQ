@@ -29,6 +29,9 @@ const chartOptions = ref({
     split: true,
   },
   series: seriesData,
+  credits: {
+    enabled: false,
+  },
 });
 
 const drawChart = () => {

@@ -17,9 +17,9 @@ const processList = computed(() => {
 });
 
 const clickEvent = async (id: number) => {
+  await store.setCurrentProcess(id);
   await store.loadMetricsByProcessId(id);
   await store.loadDetectorsByProcessId(id);
-  await store.setCurrentProcess(id);
 };
 
 const onDeleteEvent = async () => {

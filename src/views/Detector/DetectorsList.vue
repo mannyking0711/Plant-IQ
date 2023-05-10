@@ -17,9 +17,9 @@ const detectorList = computed(() => {
 });
 
 const onSelectDetector = async (id: number) => {
+  store.setCurrentDetector(id);
   await store.loadProcessByDetectorId(id);
   await store.loadMetricsByDetectorId(id);
-  store.setCurrentDetector(id);
   await store.loadRecords();
 };
 

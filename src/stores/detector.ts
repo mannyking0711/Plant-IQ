@@ -11,6 +11,7 @@ interface DetectorState {
   chartData: any[];
   startDt: Date;
   endDt: Date;
+  lock: boolean;
 }
 
 export const useDetectorStore = defineStore('detector', {
@@ -22,6 +23,7 @@ export const useDetectorStore = defineStore('detector', {
     chartData: [],
     startDt: new Date(Date.now() - 3600 * 6 * 1000),
     endDt: new Date(Date.now() + 3600 * 6 * 1000),
+    lock: false,
   }),
 
   getters: {
@@ -84,39 +86,46 @@ export const useDetectorStore = defineStore('detector', {
       this.process = JSON.parse(res.data);
     },
     async loadRecords() {
+      this.lock = true;
       const res = await API.detector.loadRecordsByDetectorIdAndBetweenDates(
         this.detectorId,
         this.startDt,
         this.endDt
       );
       this.chartData = res.data;
+      this.lock = false;
     },
     async loadMoreRecords(message: any) {
-      const startTime = Math.min(
-        this.endDt.getTime(),
-        new Date(message.startAt).getTime()
-      );
-      const endTime = Math.max(
-        this.endDt.getTime(),
-        new Date(message.stopAt).getTime()
-      );
-
-      if (startTime < endTime) {
-        const globalStore = useGlobalStoreWithOut();
-        globalStore.disableLock();
-        const res = await API.detector.loadRecordsByDetectorIdAndBetweenDates(
-          this.detectorId,
-          new Date(startTime),
-          new Date(endTime)
+      if (!this.lock) {
+        const startTime = Math.min(
+          this.endDt.getTime(),
+          new Date(message.startAt).getTime()
         );
-        globalStore.enableLock();
-        this.chartData = this.chartData.concat(res.data);
+        const endTime = Math.max(
+          this.endDt.getTime(),
+          new Date(message.stopAt).getTime()
+        );
+
+        if (startTime < endTime) {
+          const globalStore = useGlobalStoreWithOut();
+          globalStore.disableLock();
+          const res = await API.detector.loadRecordsByDetectorIdAndBetweenDates(
+            this.detectorId,
+            new Date(startTime),
+            new Date(endTime)
+          );
+          globalStore.enableLock();
+          this.chartData = this.chartData.concat(res.data);
+        }
       }
     },
     setCurrentDetector(id: number) {
       this.detectorId = id;
       this.startDt = new Date(Date.now() - 3600 * 6 * 1000);
       this.endDt = new Date(Date.now() + 3600 * 6 * 1000);
+      this.metrics = [];
+      this.chartData = [];
+      this.process = null;
     },
   },
 });
