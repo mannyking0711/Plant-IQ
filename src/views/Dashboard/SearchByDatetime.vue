@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
+import {useDashboardStore} from "@/stores/dashboard";
 
-const startDateTime = ref(new Date());
-const endDateTime = ref(new Date());
+const store = useDashboardStore();
 </script>
 
 <template>
@@ -17,7 +15,7 @@ const endDateTime = ref(new Date());
             START
           </b-input-group-text>
         </b-input-group-prepend>
-        <date-picker v-model="startDateTime" placeholder="" type="datetime" />
+        <date-picker v-model="store.startDt" placeholder="" type="datetime" />
       </b-input-group>
 
       <b-input-group class="mb-2 justify-center">
@@ -26,7 +24,7 @@ const endDateTime = ref(new Date());
             END
           </b-input-group-text>
         </b-input-group-prepend>
-        <date-picker v-model="endDateTime" placeholder="" type="datetime" />
+        <date-picker v-model="store.endDt" placeholder="" type="datetime" />
       </b-input-group>
 
       <div class="mt-3 text-center">

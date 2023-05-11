@@ -1,8 +1,9 @@
-<script setup lang="ts">
-import {ref, watch} from 'vue';
-import {useDashboardStore} from "@/stores/dashboard";
+<script lang="ts" setup>
+import {ref} from "vue";
 
-const store = useDashboardStore();
+const props = defineProps({
+
+});
 
 const seriesData = ref<any[]>([]);
 
@@ -30,24 +31,8 @@ const chartOptions = ref({
     enabled: false,
   },
 });
-
-watch(
-  () => store.selectedDetectorId,
-  async () => {
-    await store.loadChartDataByDetectorId();
-  }
-);
-
-watch(
-  () => store.charData,
-  (val) => {
-    seriesData.value = val;
-  }
-)
 </script>
 
 <template>
-  <b-card>
-    <highcharts :constructor-type="'stockChart'" :options="chartOptions" />
-  </b-card>
+
 </template>

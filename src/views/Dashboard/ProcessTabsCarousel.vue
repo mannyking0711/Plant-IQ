@@ -2,14 +2,13 @@
 import VueSlickCarousel from 'vue-slick-carousel';
 import ProcessTab from '@/components/Dashboard/ProcessTab.vue';
 import {onMounted, ref} from 'vue';
-import {Status} from '@/model/status';
 
 import 'vue-slick-carousel/dist/vue-slick-carousel.css';
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
 import {useProcessStore} from "@/stores/process";
 
 const currentPage = ref(1);
-const pages = 2;
+const pages = ref(0);
 
 const selectedProcess = ref(-1);
 
@@ -17,7 +16,7 @@ const processStore = useProcessStore();
 
 const slickSetting = {
   arrows: false,
-  dots: false,
+  dots: true,
   focusOnSelect: true,
   slidesToShow: 3,
   slidesToScroll: 3,
@@ -59,7 +58,11 @@ onMounted(async () => {
 
 <template>
   <div>
-    <VueSlickCarousel v-bind="slickSetting">
+    <VueSlickCarousel
+      v-if="processStore.getProcessList.length"
+      v-bind="slickSetting"
+      class="mb-5"
+    >
       <ProcessTab
         v-for="(pTab, index) in processStore.getProcessList"
         :key="index"
@@ -69,17 +72,17 @@ onMounted(async () => {
       />
     </VueSlickCarousel>
 
-    <b-pagination-nav
-      v-model="currentPage"
-      :number-of-pages="pages"
-      class="mb-0"
-      align="center"
-      base-url="#"
-      first-number
-      last-number
-      next-text=">"
-      pills
-      prev-text="<"
-    />
+    <!--    <b-pagination-nav-->
+    <!--      v-model="currentPage"-->
+    <!--      :number-of-pages="pages"-->
+    <!--      class="mb-0"-->
+    <!--      align="center"-->
+    <!--      base-url="#"-->
+    <!--      first-number-->
+    <!--      last-number-->
+    <!--      next-text=">"-->
+    <!--      pills-->
+    <!--      prev-text="<"-->
+    <!--    />-->
   </div>
 </template>
