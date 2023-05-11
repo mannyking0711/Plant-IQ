@@ -43,7 +43,7 @@ import NavItem from '@/components/nav/NavItem.vue';
           <NavItem href="/detector" title="detectors">
             <ICON_NAV_DETECTORS />
           </NavItem>
-          <NavItem href="/alerts" title="alerts">
+          <NavItem href="/alert" title="alerts">
             <ICON_NAV_ALERTS />
           </NavItem>
         </b-navbar-nav>

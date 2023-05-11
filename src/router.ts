@@ -26,6 +26,11 @@ const routes: RouteRecordRaw[] = [
     component: async () => await import('@/views/DetectorView.vue'),
   },
   {
+    path: '/alert',
+    name: 'Alert',
+    component: async () => await import('@/views/AlertView.vue'),
+  },
+  {
     path: '*',
     redirect: '/dashboard',
   },

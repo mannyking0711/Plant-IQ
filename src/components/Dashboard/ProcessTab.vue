@@ -1,6 +1,8 @@
 <script lang="ts" setup>
-import { Status } from '@/model/status';
+import {Status} from '@/model/status';
 import ICON_CURVE from '@/assets/icon/curve.vue';
+import {computed, onMounted, ref} from "vue";
+import {API} from "@/api";
 
 const color = {
   [Status.ACTIVATED]: '#219653',
@@ -8,16 +10,43 @@ const color = {
   [Status.DISABLED]: '#D34053',
 };
 
-defineProps<{
-  name: string;
-  status: Status;
-  detectors: object[];
+const detectors = ref([]);
+
+const props = defineProps<{
+  pk: number,
+  fields: any,
+  active: boolean,
 }>();
+
+const status = computed(() => {
+  return props.fields.status ? Status.ACTIVATED : Status.DISABLED;
+})
+
+const emit = defineEmits(['click']);
+
+const clickEvent = () => {
+  emit('click', props.pk);
+}
+
+const convertToStatus = (state: number) => {
+  if (state) return Status.ACTIVATED;
+  else return Status.DISABLED;
+}
+
+onMounted(async () => {
+  const res = await API.process.loadDetectorsByProcessId(props.pk);
+  detectors.value = JSON.parse(res.data);
+});
 </script>
 <template>
-  <b-card class="max-w-[300px] px-2">
+  <b-card class="max-w-[300px] px-2"
+          @click="clickEvent"
+          :class="{
+            '!bg-[#DDD]': active,
+            'bg-white': !active,
+          }">
     <div class="d-flex justify-between">
-      <span class="text-base font-weight-bold">{{ name }}</span>
+      <span class="text-base font-weight-bold">{{ fields.name }}</span>
       <span
         :style="{
           backgroundColor: color[status] + '50',
@@ -38,12 +67,12 @@ defineProps<{
         v-for="(detector, index) in detectors"
         :key="index"
         :style="{
-          backgroundColor: color[detector.status] + '50',
-          color: color[detector.status],
+          backgroundColor: color[convertToStatus(detector.fields.status)] + '50',
+          color: color[convertToStatus(detector.fields.status)],
         }"
         class="px-1 py-[0.1rem] rounded-lg"
       >
-        {{ detector.name }}
+        {{ detector.fields.name }}
       </span>
     </div>
   </b-card>

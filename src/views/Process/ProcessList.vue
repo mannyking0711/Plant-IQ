@@ -23,6 +23,8 @@ const clickEvent = async (id: number) => {
 };
 
 const onDeleteEvent = async () => {
+  if (store.getSelectedProcessId === -1)
+    return;
   const r = await Swal.fire({
     icon: 'question',
     title: 'Do you want to delete it?',

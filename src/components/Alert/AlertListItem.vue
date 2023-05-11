@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ICON_DETECTOR from '@/assets/icon/nav/detectors.vue';
+import ICON_ALERT from '@/assets/icon/nav/alerts.vue';
 import { Status } from '@/model/status';
 import { onUpdated, ref } from 'vue';
 
@@ -19,7 +19,7 @@ onUpdated(() => {
   status.value = props.status;
 });
 
-const loadMetrics = () => {
+const loadHistory = () => {
   emit('click', props.id);
 };
 </script>
@@ -30,9 +30,9 @@ const loadMetrics = () => {
     <a
       class="flex flex-1 gap-1 py-1 align-items-center cursor-pointer"
       href="#"
-      @click="loadMetrics"
+      @click="loadHistory"
     >
-      <ICON_DETECTOR v-b-tooltip="description" class="icon-item" />
+      <ICON_ALERT v-b-tooltip="description" class="icon-item" />
       <div>{{ name }}</div>
     </a>
 

@@ -1,15 +1,19 @@
 <script lang="ts" setup>
 import VueSlickCarousel from 'vue-slick-carousel';
 import ProcessTab from '@/components/Dashboard/ProcessTab.vue';
-import { ref } from 'vue';
-import { ProcessModel } from '@/model/processModel';
-import { Status } from '@/model/status';
+import {onMounted, ref} from 'vue';
+import {Status} from '@/model/status';
 
 import 'vue-slick-carousel/dist/vue-slick-carousel.css';
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
+import {useProcessStore} from "@/stores/process";
 
 const currentPage = ref(1);
 const pages = 2;
+
+const selectedProcess = ref(-1);
+
+const processStore = useProcessStore();
 
 const slickSetting = {
   arrows: false,
@@ -44,57 +48,24 @@ const slickSetting = {
   ],
 };
 
-const processTabList: ProcessModel[] = [
-  {
-    name: 'Cutting',
-    status: Status.ACTIVATED,
-    detectors: [
-      {
-        name: 'D1',
-        status: Status.ACTIVATED,
-      },
-    ],
-  },
-  {
-    name: 'Cutting',
-    status: Status.ACTIVATED,
-    detectors: [
-      {
-        name: 'D1',
-        status: Status.ACTIVATED,
-      },
-    ],
-  },
-  {
-    name: 'Cutting',
-    status: Status.ACTIVATED,
-    detectors: [
-      {
-        name: 'D1',
-        status: Status.ACTIVATED,
-      },
-    ],
-  },
-  {
-    name: 'Cutting',
-    status: Status.ACTIVATED,
-    detectors: [
-      {
-        name: 'D1',
-        status: Status.ACTIVATED,
-      },
-    ],
-  },
-];
+const onSelectTab = async (id: number) => {
+  selectedProcess.value = id;
+};
+
+onMounted(async () => {
+  await processStore.loadProcessList(false);
+});
 </script>
 
 <template>
   <div>
     <VueSlickCarousel v-bind="slickSetting">
       <ProcessTab
-        v-for="(pTab, index) in processTabList"
+        v-for="(pTab, index) in processStore.getProcessList"
         :key="index"
+        :active="selectedProcess === pTab.pk"
         v-bind="pTab"
+        @click="onSelectTab"
       />
     </VueSlickCarousel>
 

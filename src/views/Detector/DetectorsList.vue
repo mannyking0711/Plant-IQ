@@ -24,6 +24,9 @@ const onSelectDetector = async (id: number) => {
 };
 
 const onDeleteEvent = async () => {
+  if (store.getSelectedDetectorId === -1)
+    return;
+
   const r = await Swal.fire({
     icon: 'question',
     title: 'Do you want to delete it?',
@@ -74,7 +77,6 @@ const onDeleteEvent = async () => {
               v-b-tooltip="'Trash'"
               class="mx-1"
               :role="store.getSelectedDetectorId === -1 ? '' : 'button'"
-              :disabled="store.getSelectedDetectorId === -1"
               @click="onDeleteEvent"
             >
               <ICON_TRASH />
